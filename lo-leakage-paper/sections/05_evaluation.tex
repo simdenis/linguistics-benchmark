@@ -1,0 +1,20 @@
+\section{Evaluation}
+\label{sec:evaluation}
+
+\paragraph{Deterministic grading.}
+We design prompts that force machine-checkable outputs:
+JSON for matching, a single letter for multiple-choice, and normalized strings for short outputs.
+We grade with strict parsers plus lightweight normalization (case-folding, whitespace normalization).
+
+\paragraph{Metrics.}
+We report:
+\begin{itemize}
+  \item Accuracy by task type and overall,
+  \item Memorization gap \gap overall and by task type,
+  \item Accuracy by competition and by year bins (to probe temporal effects).
+\end{itemize}
+
+\paragraph{Robustness checks.}
+We include protocol-level controls:
+temperature $=0$, fixed max tokens, fixed context window, and cached outputs.
+\TODO{Add prompt ablations if time permits.}

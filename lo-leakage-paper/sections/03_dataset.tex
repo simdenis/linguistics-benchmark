@@ -1,0 +1,39 @@
+\section{Dataset Construction}
+\label{sec:dataset}
+
+\paragraph{Sources.}
+We collect problems from publicly available archives of IOL, NACLO, and UKLO (2010+).
+To enable reliable evaluation, we focus on \emph{auto-gradable} subproblems (matching, multiple-choice, and short structured outputs).
+
+\paragraph{PDF acquisition and pairing.}
+We download official problem/solution PDFs from competition archives.
+When problems and solutions are separate files, we merge them into paired PDFs (IOL: \texttt{-prob} + \texttt{-sol}; NACLO: solution files marked with a trailing \texttt{S}).
+We keep PDFs local and only use them for extraction.
+
+\paragraph{Raw extraction and filtering.}
+Each PDF page is converted into a JSONL record using \texttt{pdfplumber}, preserving page text and any detected tables.
+We then filter pages using keyword heuristics to drop rules, scoring, and solution-only pages.
+We also maintain a reject log for pages we exclude (e.g., low-quality scans, non-Latin scripts, or non-language topics).
+
+\paragraph{LLM-assisted structuring.}
+Filtered pages are converted into draft JSONL items using a local Ollama model.
+Problem pages produce prompts; solution pages produce answers; we merge them via a short anchor string extracted from the page.
+
+\paragraph{Unified schema.}
+Each item is stored as a JSON record containing:
+(i) the prompt with structured data (tables/wordlists/options), (ii) a canonical gold answer, (iii) an output specification, and (iv) metadata (competition, year, file, page, source link).
+\TODO{Add a short schema figure or example listing in the appendix.}
+
+\paragraph{De-duplication.}
+We do not currently perform cross-source de-duplication; this is future work.
+
+\paragraph{Task types.}
+\begin{itemize}
+  \item \textbf{Matching:} map numbered strings to lettered glosses.
+  \item \textbf{Multiple-choice:} choose among options A--D.
+  \item \textbf{Short structured output:} constrained strings (e.g., a single word/phrase or JSON mapping).
+\end{itemize}
+
+\paragraph{Train/dev/test.}
+We report results on a held-out test split stratified by competition and year.
+\TODO{Decide split strategy and add counts.}

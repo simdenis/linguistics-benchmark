@@ -1,0 +1,28 @@
+\section{Isomorphic Variants and Leakage Measurement}
+\label{sec:isomorphs}
+
+\paragraph{Definition.}
+Given an item $x$ with gold answer $y$, an \emph{isomorphic variant} is a transformation $T$ that produces $x' = T(x)$ such that there exists a deterministic induced mapping $T_y$ with $y' = T_y(y)$ and $(x', y')$ preserves the underlying reasoning structure.
+In short: the puzzle is ``the same,'' but surface strings change.
+
+\paragraph{Transformations.}
+We use compositions of:
+\begin{itemize}
+  \item \textbf{Label permutation:} permute the letter labels of multiple-choice or matching lists.
+  \item \textbf{Example reordering:} reorder the presentation of examples without changing content.
+  \item \textbf{Lexeme renaming:} consistently rename the unknown-language tokens and/or English gloss words via a bijection.
+  \item \textbf{Format-preserving noise:} whitespace and punctuation perturbations that do not alter the intended reading.
+\end{itemize}
+We avoid transformations that change linguistic difficulty (e.g., adding/removing distractors).
+
+\paragraph{Memorization gap.}
+We define
+\[
+\gap \;=\; \mathrm{Acc}(\orig) - \mathrm{Acc}(\iso),
+\]
+where $\mathrm{Acc}(\orig)$ is accuracy on original items and $\mathrm{Acc}(\iso)$ is accuracy on isomorphic variants.
+A large positive \gap suggests sensitivity to surface form consistent with memorization or brittle pattern matching.
+
+\paragraph{Variant generation protocol.}
+For each test item, we generate $k$ variants (default $k=3$) with fixed random seeds for reproducibility.
+\TODO{Add details: which spans are variantable and how you sample bijections.}

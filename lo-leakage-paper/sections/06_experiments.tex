@@ -1,0 +1,18 @@
+\section{Models and Experimental Protocol}
+\label{sec:experiments}
+
+\paragraph{Model set.}
+We benchmark a suite of open-weight instruction-tuned LLMs runnable locally.
+\TODO{Fill in final list: e.g., Llama-3.1-8B-Instruct, Qwen2.5-7B-Instruct, Mistral-7B, Gemma-2-9B, Phi-3-mini.}
+
+\paragraph{Inference stack.}
+We run models via a local inference server (e.g., Ollama/llama.cpp), using identical prompts and decoding settings.
+\TODO{List exact versions and quantization formats.}
+
+\paragraph{Prompting.}
+We use a single prompt template per task type.
+The prompt specifies output format strictly (``JSON only'', ``single letter only'').
+We do not provide exemplars unless explicitly stated (zero-shot by default).
+
+\paragraph{Caching.}
+All raw model outputs are cached and re-gradable to support reproducibility.

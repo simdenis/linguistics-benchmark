@@ -1,0 +1,50 @@
+\section{Reproducibility}
+\label{sec:reproducibility}
+
+We release:
+\begin{itemize}
+  \item scripts to download and pair PDFs (IOL/NACLO/UKLO),
+  \item raw page-level JSONL extracted with \texttt{pdfplumber},
+  \item filtered JSONL (problem and solution pages),
+  \item a local-LLM extraction pipeline (Ollama) that produces draft items,
+  \item merge scripts that combine problems and solutions into final JSONL,
+  \item deterministic variant-generation code and seeds,
+  \item an evaluation harness with strict parsing and normalization,
+  \item runner scripts for local inference.
+\end{itemize}
+
+\paragraph{Pipeline commands.}
+\begin{verbatim}
+# 1) Download PDFs
+python download_iol.py
+python download_naclo.py
+python download_uklo.py
+
+# 2) Merge problem + solution PDFs (IOL/NACLO)
+python scripts/merge_pdfs.py --all
+
+# 3) Page-level extraction
+make extract_raw
+
+# 4) Filter pages (problem vs solution)
+make filter_raw
+python scripts/validate_reject_log.py --path docs/reject_log.csv
+python scripts/filter_raw.py --in data/raw/naclo_raw.jsonl \
+  --out data/raw/naclo_solutions.jsonl --mode solutions
+
+# 5) Local LLM extraction (Ollama)
+make extract_structured_local
+python scripts/extract_structured_ollama.py \
+  --in data/raw/naclo_solutions.jsonl \
+  --out data/structured/naclo_solutions.jsonl \
+  --mode solutions
+
+# 6) Merge problem + solution drafts
+make merge_structured
+\end{verbatim}
+
+\paragraph{Curation controls.}
+We enforce a minimum year of 2010 during extraction and maintain a reject log to exclude low-quality scans,
+non-Latin scripts, and non-auto-gradable pages.
+
+\TODO{Add exact commit hash, model hashes, and environment details.}

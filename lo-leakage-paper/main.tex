@@ -1,0 +1,75 @@
+\documentclass[11pt]{article}
+
+% =========================
+% Packages
+% =========================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+% =========================
+% Macros
+% =========================
+\newcommand{\bench}{\textsc{LoLeakBench}}
+\newcommand{\iolbench}{\textsc{IOLBench}}
+\newcommand{\gap}{\ensuremath{\mathsf{MemGap}}}
+\newcommand{\orig}{\ensuremath{\mathsf{Orig}}}
+\newcommand{\iso}{\ensuremath{\mathsf{Iso}}}
+
+\newcommand{\TODO}[1]{\textcolor{red}{[TODO: #1]}}
+
+% Tight lists
+\setlist[itemize]{noitemsep,topsep=2pt,leftmargin=*}
+\setlist[enumerate]{noitemsep,topsep=2pt,leftmargin=*}
+
+\title{\bench: Measuring Memorization via Isomorphic Variants in\\Linguistics Olympiad Benchmarks Across Competitions}
+
+\author{Denis Siminiuc\\
+Massachusetts Institute of Technology\\
+\texttt{\TODO{email}}}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\TODO{2--5 sentences: what problem, what you built, what you found.}
+
+We present \bench, a reproducible benchmark suite built from Linguistics Olympiad problems (IOL, NACLO, UKLO; 2010+) with a focus on \emph{leakage}: the possibility that large language models (LLMs) solve public problems by memorization rather than rule induction.
+Our key contribution is an evaluation protocol based on \emph{isomorphic variants}---surface-form transformations that preserve the underlying logical structure of a puzzle.
+We define a memorization gap metric, \gap = Acc(\orig) - Acc(\iso), and report results for a set of open-weight models runnable on consumer hardware.
+\end{abstract}
+
+\input{sections/01_introduction.tex}
+\input{sections/02_related_work.tex}
+\input{sections/03_dataset.tex}
+\input{sections/04_isomorphs.tex}
+\input{sections/05_evaluation.tex}
+\input{sections/06_experiments.tex}
+\input{sections/07_results.tex}
+\input{sections/08_discussion.tex}
+\input{sections/09_limitations_ethics.tex}
+\input{sections/10_reproducibility.tex}
+
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\appendix
+\input{sections/A_appendix.tex}
+
+\end{document}

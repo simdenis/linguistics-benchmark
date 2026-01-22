@@ -1,0 +1,21 @@
+\section{Introduction}
+Linguistics Olympiad problems are designed to be self-contained puzzles: given a small set of examples in an unfamiliar language, solvers must induce rules and answer questions (e.g., matching, translation, segmentation).
+Recent work has proposed benchmarks derived from the International Linguistics Olympiad (IOL) to evaluate LLM reasoning in a knowledge-neutral setting~\cite{goyal2025iolbench}.
+
+However, knowledge-neutral \emph{task structure} does not guarantee a knowledge-neutral \emph{evaluation}.
+Many Olympiad problems and official solutions are publicly available online.
+As a result, strong performance may partially reflect exposure to the exact problems or near-duplicates during pretraining (``leakage''), rather than robust rule induction.
+
+\paragraph{Goal.}
+We aim to quantify leakage in Linguistics Olympiad benchmarks by comparing performance on original problems to performance on \emph{isomorphic variants} that preserve the underlying reasoning structure while perturbing surface form.
+
+\paragraph{Contributions.}
+\begin{itemize}
+  \item \textbf{Cross-competition dataset.} We curate a suite of auto-gradable subproblems from IOL, NACLO, and UKLO (2010+) in a unified schema.
+  \item \textbf{Isomorphic-variant protocol.} We define a family of transformations that preserve correctness while breaking exact-match memorization.
+  \item \textbf{Leakage metric.} We propose the memorization gap \gap = Acc(\orig)-Acc(\iso) and analyze it by task type, year, and competition.
+  \item \textbf{Open reproducibility.} We provide a runner and cached outputs for open-weight models that can be executed locally (e.g., on an Apple M-series laptop) with deterministic settings.
+\end{itemize}
+
+\paragraph{Paper roadmap.}
+\Cref{sec:dataset} describes dataset construction; \Cref{sec:isomorphs} defines isomorphic variants; \Cref{sec:evaluation} details metrics and grading; \Cref{sec:experiments} describes models and protocols; \Cref{sec:results} reports findings.

@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+.venv/
+__pycache__/
+*.pyc
+
+data/**
+!data/examples/**
+
+results/
+runs/
